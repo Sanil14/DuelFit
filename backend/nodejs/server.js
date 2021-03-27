@@ -3,11 +3,11 @@ require("dotenv").config({ path: "./config/.firebase.env" })
 const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const config = require("./config/config");
-const routes = require("./routes");
-const admin = require("firebase-admin");
+const config = require("./src/config/config");
+const routes = require("./src/routes");
 const whitelistedURLs = [config.frontendURL];
-
+const firebase = require("./src/services/firebase-auth");
+firebase.initialize();
 
 // Response Extensions
 app.use((_, res, next) => {
@@ -48,9 +48,3 @@ app.listen(config.port, (err) => {
     if (err) return console.log(err);
     console.log(`Listening to port ${config.port}`);
 });
-
-admin.initializeApp({
-    credentials: admin.credential.applicationDefault()
-})
-
-module.exports.admin = admin;
