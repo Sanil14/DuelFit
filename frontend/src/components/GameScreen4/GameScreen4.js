@@ -4,25 +4,27 @@ const GameScreen4 = () => {
   return (
     <section className="h-screen bg-gray-900">
       <div className="flex flex-row h-3/6  justify-evenly">
-      <div className="bg-blue-400 w-6/12 self-center h-4/6 mx-10 flex flex-row justify-center align-center">
-          <h className="text-6xl py-8">Winner</h>
+      <div className="box-border border-yellow-600 h-32 w-32 p-4 border-4 bg-yellow-400 w-6/12 self-center h-4/6 mx-10 flex flex-row justify-center align-center">
+          <h className="text-6xl">Winner</h>
         </div>
       </div>
       <div className="flex flex-row h-3/6  justify-evenly">
-        <div className="bg-gray-400 w-4/12 self-center h-5/6 mx-10">
-          <h>POINTS BREAKDOWN: </h>
+        <div className="box-border border-blue-300 h-32 w-32 p-4 border-4 bg-gray-100 w-4/12 self-center h-5/6 mx-10">          
+          <h className="text-3xl">Points Breakdown: </h>
         </div>
-        <div className="bg-yellow-100 w-6/12 self-center h-5/6 mx-10 flex flex-col align-center">
-        <div className="bg-yellow-500 ">
+        <div className="box-border border-yellow-300 h-32 w-32 p-4 border-4 bg-yellow-100 w-6/12 self-center h-5/6 mx-10 flex flex-col align-center">       
         <h className="text-3xl">You:</h>
+        <div className="my-32">
+        <h className="text-3xl ">Opponent:</h>  
         </div>
-        <div className="bg-yellow-500 my-32">
-        <h className="text-3xl pb-4">Opponent:</h>  
+        </div>
+        <div className="box-border border-blue-300 h-32 w-32 p-4 border-4 bg-gray-100 w-4/12 self-center h-5/6 mx-10 flex flex-col">
+          <h className="text-3xl ">Calories Burnt:</h>
+        <div className="my-32">
+          <h className="text-3xl ">Total Time Spent:</h>
         </div>
         </div>
-        <div className="bg-gray-400 w-4/12 self-center h-5/6 mx-10">
-          <h>Calories Burnt: </h>
-        </div>
+        
       </div>
 
     </section>
