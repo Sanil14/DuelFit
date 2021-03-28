@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 const NavBar = () => {
   return (
     <header class="text-gray-400 bg-gray-900 body-font">
