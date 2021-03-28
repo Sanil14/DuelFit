@@ -7,8 +7,7 @@ const controller = {
             if (!name || !email || !password || !weight || !height || !fitness) return res.unAuthorized();
             const userCredential = await auth().createUserWithEmailAndPassword(email, password);
             const user = userCredential.user;
-            newuser = db().ref(`/users/${user.uid}`).push()
-            const response = newuser.set({
+            const response = db().ref(`/users/${user.uid}`).set({
                 name,
                 email,
                 weight,
