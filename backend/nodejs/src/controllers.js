@@ -1,39 +1,34 @@
-const { nanoid } = require("nanoid");
-const { db } = require("./services/firebase-auth");
+const { db, auth } = require("./services/firebase-auth");
 
 const controller = {
     registerUser: async (req, res) => {
-        const { name, email, password, age, weight, height } = req.body;
-        if (!name || !email || !password || !age || !weight || !height) return res.unAuthorized();
-        const checkEmail = await module.exports._checkUserExists(email);
-        if (checkEmail.found) return res.errorMessage(`This email already exists`);
-        const response = db().ref(`users/${module.exports._generateID()}`).set({
-            name,
-            email,
-            password,
-            age,
-            weight,
-            height
-        });
-        return res.success(response);
+        try {
+            const { name, email, password, age, weight, height } = req.body;
+            if (!name || !email || !password || !age || !weight || !height) return res.unAuthorized();
+            const userCredential = await auth().createUserWithEmailAndPassword(email, password);
+            const user = userCredential.user;
+            const response = db().ref(`users/${user.uid}`).set({
+                name,
+                email,
+                age,
+                weight,
+                height
+            });
+            return res.success(response);
+        } catch (err) {
+            console.log(err);
+            return res.errorMessage(err.message);
+        }
     },
 
-    _generateID: () => {
-        return nanoid(5);
-    },
-
-    _checkUserExists: async (email) => {
-        return new Promise((resolve, reject) => {
-            var found = false;
-            db().ref().child("users").get().then(function (data) {
-                if (!data.val()) return resolve({ found })
-                const d = Object.values(data.val());
-                d.forEach(e => {
-                    if (found) return;
-                    if (e.email === email) return found = true;
-                });
-                resolve({ found });
-            })
+    getProfile: async (req, res) => {
+        const { email } = req.query;
+        db().ref(`users`).child(req.uid).get().then(function (snapshot) {
+            if (!snapshot.exists()) return res.errorMessage(`User was not found`);
+            return res.success(snapshot.val())
+        }).catch(function (err) {
+            console.log(err);
+            return res.errorMessage(`Error`);
         })
     }
 }
