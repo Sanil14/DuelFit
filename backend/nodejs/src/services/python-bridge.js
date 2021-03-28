@@ -1,8 +1,8 @@
 const chokidar = require("chokidar");
 const path = require("path");
-const somthing = require("../../../output")
+const fs = require("fs");
 
-const watcher = chokdar.watch(path.join(__dirname, "../../../output"), { persistent: true });
+const watcher = chokidar.watch(path.join(__dirname, "../../../output"), { persistent: true });
 
 module.exports.initialize = function () {
     console.log(`Initialized Watching For Python Responses`);
@@ -10,6 +10,9 @@ module.exports.initialize = function () {
     watcher.on('add', path => {
         if (path.endsWith(".txt")) {
             console.log(`${path} file was added`);
+        }
+        if (path.endsWith(".mp4")) {
+            
         }
     })
 }
