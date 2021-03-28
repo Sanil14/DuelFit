@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { ReactMediaRecorder } from "react-media-recorder";
 import Countdown from 'react-countdown';
+import userService from "../../services/userService"
+import { auth } from '../../services/firebase-auth';
 
 const VideoPreview = ({ stream }) => {
   const videoRef = useRef(null);
@@ -18,9 +20,8 @@ const VideoPreview = ({ stream }) => {
 
 const GameScreen2 = () => {
   const [mediaBlob, setMediaBlob] = useState(null);
-  const [blobData, setBlobData] = useState(null);
   const [timerStatus, setTimerStatus] = useState('on');
-  const timerRef = useRef()
+  const timerRef = useRef();
   const recStart = useRef();
   const recEnd = useRef();
 
@@ -31,7 +32,7 @@ const GameScreen2 = () => {
   }
 
   const handleEnd = () => {
-    // recEnd.current.click();
+    recEnd.current.click();
   }
   useEffect(() => {
     if (timerStatus === "on") {
@@ -42,11 +43,15 @@ const GameScreen2 = () => {
     }
   })
 
+  useEffect(() => {
+    console.log(auth().currentUser)
+  }, [])
+
 
   useEffect(async () => {
     if (mediaBlob) {
-      const text = new Blob([mediaBlob], { 'type': 'video / mp4' });
-      setBlobData(await text.arrayBuffer());
+      const videoFile = new File([mediaBlob], "video.mp4", { type: "video/mp4" });
+      await userService.uploadExercise(videoFile);
     }
   }, [mediaBlob])
 
@@ -67,12 +72,11 @@ const GameScreen2 = () => {
         video
         render={
           ({ status, startRecording, stopRecording, mediaBlobUrl, previewStream }) => {
-            setMediaBlob(mediaBlobUrl);
             return (
               <div className="w-12/12 flex flex-col items-center">
                 <h>{status}</h>
                 <button ref={recStart} onClick={startRecording}>Start Recording</button>
-                {/* <button ref={recEnd} onClick={stopRecording}>Stop Recording</button> */}
+                <button ref={recEnd} onClick={stopRecording}>Stop Recording</button>
                 <div className="w-6/12 bg-black self-center">
                   <VideoPreview stream={previewStream} />
                 </div>
@@ -80,6 +84,7 @@ const GameScreen2 = () => {
               </div>
             );
           }}
+        onStop={(blobURL, blob) => setMediaBlob(blob)}
       />
       <div className=" flex flex-row justify-center">
         <h className="text-white w-12/12">Make sure to place yourself within the rectangle.</h>

@@ -76,6 +76,27 @@ const userService = {
         }
     },
 
+    uploadExercise: async (formdata) => {
+        try {
+            const bearertoken = await userService._getToken();
+            if (!bearertoken) return console.log(`Not Logged In`);
+            const formData = new FormData();
+            formData.append("exercise", formdata);
+            const resp = await axios.post("/game/upload", formData, {
+                headers: {
+                    "content-type": "multipart/form-data",
+                    authorization: `Bearer ${token}`
+                }
+            });
+            return resp.data;
+        } catch (e) {
+            console.log(e);
+            return {
+                success: false
+            }
+        }
+    },
+
     _getToken: async () => {
         if (token) return token;
         token = await auth().currentUser.getIdToken();
