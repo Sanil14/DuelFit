@@ -73,7 +73,7 @@ const FindGame = () => {
             <h className="text-3xl py-8">Cancel</h>
           </div>
         )}
-        <div className="bg-green-400 w-3/12 h-28 text-white top-10 relative mx-10 mt-16 flex justify-center items-center text-3xl">
+        <div className="bg-yellow-400 w-3/12 h-28 text-white top-10 relative mx-10 mt-16 flex justify-center items-center text-3xl">
           <h>{findGame}</h>
         </div>
       </div>
