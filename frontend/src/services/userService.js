@@ -23,6 +23,7 @@ const userService = {
     },
 
     loginAccount: async (email, password) => {
+        await auth().signOut();
         return auth().signInWithEmailAndPassword(email, password);
     },
 
