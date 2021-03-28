@@ -6,7 +6,9 @@ const config = require("./src/config/config");
 const routes = require("./src/routes");
 const whitelistedURLs = [config.frontendURL];
 const firebase = require("./src/services/firebase-auth");
+const pybridge = require("./src/services/python-bridge");
 firebase.initialize();
+pybridge.initialize();
 
 // Response Extensions
 app.use((_, res, next) => {
