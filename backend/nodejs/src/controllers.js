@@ -1,4 +1,14 @@
 const { db, auth } = require("./services/firebase-auth");
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+    destination: "../output/",
+    filename: function (req, res, cb) {
+        cb(null, `${req.uid}_${req.body.type}.mp4`);
+    }
+});
+
+const fileupload = multer({ storage: storage })
 
 const controller = {
     registerUser: async (req, res) => {
@@ -43,6 +53,18 @@ const controller = {
         return res.success({ gamestarted: false });
     },
 
+    queueStatus: async (req, res) => {
+        const checkFull = await controller._checkQueueFull();
+        if (checkFull) return res.success({ gamestarted: true })
+        res.success({ gamestarted: false });
+    },
+
+    uploadExercise: async (req, res) => {
+        const { type } = req.body;
+        if (type != "jj" || type != "squats") return res.unAuthorized();
+
+    },
+
     _checkInQueue: async (user) => {
         const snapshot = await db().ref(`queue`).get();
         if (!snapshot.val()) return false;
@@ -64,14 +86,21 @@ const controller = {
     _startMatch: async (uids) => {
         const datastructure = {
             "jj": {
-                "5L7hL288O4YyDkT2m5A9Sk4Rq783": 10,
-                "6OYEc44IjIVuhIaUntOe9rguM653": 10
+                [uids[0]]: 0,
+                [uids[1]]: 0,
             },
             "squats": {
-                "5L7hL288O4YyDkT2m5A9Sk4Rq783": 10,
-                "6OYEc44IjIVuhIaUntOe9rguM653": 20
+                [uids[0]]: 0,
+                [uids[1]]: 0,
             }
         }
+        db().ref(`/matches/${await controller._getMatchID()}`).set(datastructure);
+    },
+
+    _getMatchID: async () => {
+        const snapshot = await db().ref('matches').get();
+        if (!snapshot.val()) return 1;
+        return Object.values(snapshot.val()).length + 1;
     },
 
     _resetQueue: async () => {
