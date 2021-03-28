@@ -1,4 +1,14 @@
 const { db, auth } = require("./services/firebase-auth");
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+    destination: "../output/",
+    filename: function (req, res, cb) {
+        cb(null, `${req.uid}_${req.body.type}.mp4`);
+    }
+});
+
+const fileupload = multer({ storage: storage })
 
 const controller = {
     registerUser: async (req, res) => {
@@ -41,6 +51,18 @@ const controller = {
         const checkFull = await controller._checkQueueFull();
         if (checkFull) return res.success({ gamestarted: true })
         return res.success({ gamestarted: false });
+    },
+
+    queueStatus: async (req, res) => {
+        const checkFull = await controller._checkQueueFull();
+        if (checkFull) return res.success({ gamestarted: true })
+        res.success({ gamestarted: false });
+    },
+
+    uploadExercise: async (req, res) => {
+        const { type } = req.body;
+        if (type != "jj" || type != "squats") return res.unAuthorized();
+
     },
 
     _checkInQueue: async (user) => {

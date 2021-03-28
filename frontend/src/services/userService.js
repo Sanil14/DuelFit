@@ -64,6 +64,18 @@ const userService = {
         }
     },
 
+    queueStatus: async () => {
+        try {
+            const resp = await axios.get("/game/queuestatus")
+            return resp.data;
+        } catch (e) {
+            console.log(e);
+            return {
+                success: false
+            }
+        }
+    },
+
     _getToken: async () => {
         if (token) return token;
         token = await auth().currentUser.getIdToken();
