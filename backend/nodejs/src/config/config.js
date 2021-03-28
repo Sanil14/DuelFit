@@ -8,7 +8,7 @@ const Config = function () {
         default:
             return {
                 port: 5000,
-                frontendURL: "localhost:3000"
+                frontendURL: "http://localhost:3000"
             }
     }
 }

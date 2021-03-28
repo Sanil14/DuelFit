@@ -22,14 +22,13 @@ const controller = {
     },
 
     getProfile: async (req, res) => {
-        const { email } = req.query;
         db().ref(`users`).child(req.uid).get().then(function (snapshot) {
             if (!snapshot.exists()) return res.errorMessage(`User was not found`);
-            return res.success(snapshot.val())
+            return res.success(snapshot.val());
         }).catch(function (err) {
             console.log(err);
             return res.errorMessage(`Error`);
-        })
+        });
     }
 }
 
