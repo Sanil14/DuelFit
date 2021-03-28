@@ -3,8 +3,8 @@ const { db, auth } = require("./services/firebase-auth");
 const controller = {
     registerUser: async (req, res) => {
         try {
-            const { name, email, password, age, weight, height } = req.body;
-            if (!name || !email || !password || !age || !weight || !height) return res.unAuthorized();
+            const { name, email, password, age, weight, height, fitness } = req.body;
+            if (!name || !email || !password || !age || !weight || !height || !fitness) return res.unAuthorized();
             const userCredential = await auth().createUserWithEmailAndPassword(email, password);
             const user = userCredential.user;
             const response = db().ref(`users/${user.uid}`).set({
@@ -12,7 +12,8 @@ const controller = {
                 email,
                 age,
                 weight,
-                height
+                height,
+                fitness
             });
             return res.success(response);
         } catch (err) {
