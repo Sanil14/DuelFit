@@ -1,14 +1,5 @@
 const { db, auth } = require("./services/firebase-auth");
-const multer = require("multer");
-
-const storage = multer.diskStorage({
-    destination: "../output/",
-    filename: function (req, res, cb) {
-        cb(null, `${req.uid}_${req.body.type}.mp4`);
-    }
-});
-
-const fileupload = multer({ storage: storage })
+const { eventEmitter } = require("./services/python-bridge");
 
 const controller = {
     registerUser: async (req, res) => {
@@ -60,9 +51,10 @@ const controller = {
     },
 
     uploadExercise: async (req, res) => {
-        const { type } = req.body;
-        if (type != "jj" || type != "squats") return res.unAuthorized();
-
+        console.log(`Started Upload Exercise API`);
+        eventEmitter.addListener("reps", async (data) => {
+            return res.success({ reps: data });
+        })
     },
 
     _checkInQueue: async (user) => {
