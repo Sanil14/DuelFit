@@ -11,7 +11,6 @@ const controller = {
             const response = newuser.set({
                 name,
                 email,
-                age,
                 weight,
                 height,
                 fitness
