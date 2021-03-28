@@ -1,25 +1,20 @@
-const admin = require("firebase-admin");
-var firebaseadmin;
+const firebase = require("firebase/app");
+require("firebase/auth");
+require("firebase/database");
+var database;
 
 module.exports.initialize = function () {
     console.log(`Initialized Firebase App`)
-    firebaseadmin = admin.initializeApp({
-        credentials: {
-            type: process.env.type,
-            project_id: process.env.project_id,
-            private_key_id: process.env.private_key_id,
-            private_key: process.env.private_key,
-            client_email: process.env.client_email,
-            client_id: process.env.client_id,
-            auth_url: process.env.auth_url,
-            token_url: process.env.token_url,
-            auth_provider_x509_cert_url: process.env.auth_provider_x509_cert_url,
-            client_x509_cert_url: process.env.client_x509_cert_url
-        },
-        databaseURL: 'https://fitness-hackathon.firebaseio.com'
+    firebase.initializeApp({
+        authDomain: "duelfit-717ca.firebaseapp.com",
+        databaseURL: "https://duelfit-717ca-default-rtdb.europe-west1.firebasedatabase.app",
+        storageBucket: "users.appspot.com"
     });
+    database = firebase.database();
 }
 
-module.exports.admin = function () {
-    return firebaseadmin
+module.exports.db = function () {
+    return database
 }
+
+// databaseURL: 'https://duelfit-717ca-default-rtdb.europe-west1.firebasedatabase.app'
