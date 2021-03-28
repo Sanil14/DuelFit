@@ -18,20 +18,24 @@ const MainMenu = () => {
         <table class="table-auto border-white border-2 ">
           <thead>
             <th class="w-1/6 px-1 py-1 border-white border-2">Position</th>
-            <th class="w-5/6 px-1 py-1 border-white border-2">Name</th>
+            <th class="w-4/6 px-1 py-1 border-white border-2">Name</th>
+            <th class="w-1/6 px-1 py-1 border-white border-2">Cals</th>
           </thead>
           <tbody>
             <tr>
               <td class="w-1/6 text-center px-1 py-1 border-white border-2">1</td>
-              <td class="w-1/6 text-center px-1 py-1 border-white border-2">Aryan</td>
+              <td class="w-1/6 text-center px-1 py-1 border-white border-2">Aryan Dominic</td>
+              <td class="w-1/6 text-center px-1 py-1 border-white border-2">19,812</td>
             </tr>
             <tr>
               <td class="w-1/6 text-center px-1 py-1 border-white border-2">2</td>
-              <td class="w-1/6 text-center px-1 py-1 border-white border-2">Austin</td>
+              <td class="w-1/6 text-center px-1 py-1 border-white border-2">Rohit Gomez</td>
+              <td class="w-1/6 text-center px-1 py-1 border-white border-2">18,871</td>
             </tr>
             <tr>
               <td class="w-1/6 text-center px-1 py-1 border-white border-2">3</td>
-              <td class="w-1/6 text-center px-1 py-1 border-white border-2">Evelyn</td>
+              <td class="w-1/6 text-center px-1 py-1 border-white border-2">Auti Emmu</td>
+              <td class="w-1/6 text-center px-1 py-1 border-white border-2">16,123</td>
             </tr>
           </tbody>
         </table>

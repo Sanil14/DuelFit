@@ -31,7 +31,7 @@ const GameScreen2 = () => {
   }
 
   const handleEnd = () => {
-    // recEnd.current.click();
+    recEnd.current.click();
   }
   useEffect(() => {
     if (timerStatus === "on") {
@@ -57,7 +57,7 @@ const GameScreen2 = () => {
           <h className="text-3xl">Workout Name</h>
         </div>
         <div className="bg-green-400 w-2/12 h-16 text-white top-10 relative mx-10 p- flex justify-center items-center text-3xl">
-          <Countdown ref={timerRef} date={Date.now() + 5000} autoStart={false} onComplete={() => setTimerStatus('done')}>
+          <Countdown ref={timerRef} date={Date.now() + 15000} autoStart={false} onComplete={() => setTimerStatus('done')}>
             <h>Take a rest!</h>
           </Countdown>
         </div>
@@ -72,7 +72,7 @@ const GameScreen2 = () => {
               <div className="w-12/12 flex flex-col items-center">
                 <h>{status}</h>
                 <button ref={recStart} onClick={startRecording}>Start Recording</button>
-                {/* <button ref={recEnd} onClick={stopRecording}>Stop Recording</button> */}
+                <button ref={recEnd} onClick={stopRecording}>Stop Recording</button>
                 <div className="w-6/12 bg-black self-center">
                   <VideoPreview stream={previewStream} />
                 </div>
