@@ -56,6 +56,7 @@ def run(vidpath, filename):
 
 	outputfile = open(PATH_TO_IO+f'/{filename}.txt', 'w')
 	outputfile.write(f'{int(reps)}')
+	outputfile.close()
 
 while True:
 	time.sleep(1)

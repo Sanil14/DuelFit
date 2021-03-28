@@ -1,5 +1,6 @@
 const { db, auth } = require("./services/firebase-auth");
 const { eventEmitter } = require("./services/python-bridge");
+var i = 0;
 
 const controller = {
     registerUser: async (req, res) => {
@@ -33,12 +34,13 @@ const controller = {
     },
 
     joinQueue: async (req, res) => {
+        console.log(`JOINING QUEUE`);
         const checkQueue = await controller._checkInQueue(req.uid);
         if (checkQueue) return res.errorMessage(`Already in queue`);
-        newqueueuser = db().ref(`/queue`).push()
-        newqueueuser.set({
+        db().ref(`/queue/${i+1}`).set({
             uid: req.uid
         });
+        i += 1;
         const checkFull = await controller._checkQueueFull();
         if (checkFull) return res.success({ gamestarted: true })
         return res.success({ gamestarted: false });
@@ -66,6 +68,7 @@ const controller = {
 
     _checkQueueFull: async () => {
         const snapshot = await db().ref('queue').get();
+        if (!snapshot.val()) return false;
         if (Object.values(snapshot.val()).length === 2) {
             const uids = [Object.values(snapshot.val())[0].uid, Object.values(snapshot.val())[1].uid];
             await controller._startMatch(uids);

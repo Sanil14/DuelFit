@@ -8,26 +8,29 @@ const FindGame = () => {
   let history = useHistory();
   useEffect(() => {
     let interval;
-    if (findGame === 'Finding...') {
-      const resp = userService.joinQueue();
-      if (resp.gamestarted) {
-        history.push("/gs1")
-      }
-      else {
-        interval = setInterval(() => {
-          const res2 = userService.queueStatus();
-          if (res2.gamestarted) {
-            return
-          }
-        }, 2000)
+    async function checkQueue() {
+      console.log(findGame);
+      if (findGame === 'Finding...') {
+        const resp = await userService.joinQueue();
+        if (resp.gamestarted) {
+          history.push("/gs1")
+        } else {
+          interval = setInterval(async () => {
+            const res2 = await userService.queueStatus();
+            if (res2.gamestarted) {
+              return
+            }
+          }, 2000)
+        }
       }
     }
+    checkQueue()
     return () => {
       if (interval) {
         clearInterval(interval);
       }
     };
-  }, [])
+  }, [findGame])
   return (
     <section className="bg-gray-900 h-screen flex flex-col">
       <h className="mt-5 text-4xl text-white text-center self-center">Choose your workout</h>
