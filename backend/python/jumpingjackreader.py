@@ -22,7 +22,7 @@ def run(vidpath, filename):
 	x = video.shape[2]
 
 	larm = utils.Block(video, (2*x/3, y/2), 40, 40)
-	rarm = utils.Block(video, (x/3, y/2), 40, 40)
+	rarm = utils.Block(video, (1.4*x/3, y/2), 40, 40)
 	avg_frames_larm = larm.blockavg()
 	avg_frames_rarm = rarm.blockavg()
 
@@ -47,10 +47,7 @@ def run(vidpath, filename):
 	print('left arm reps:', reps_larm)
 	print('right arm reps:', reps_rarm)
 
-	if avg_frames_larm[0] > avg_frames_rarm[0]:
-		reps = reps_larm
-	else:
-		reps = reps_rarm
+	reps = (reps_larm+reps_rarm)/2
 
 	print('avg reps:', reps)
 
