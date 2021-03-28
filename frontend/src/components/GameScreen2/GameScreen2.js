@@ -27,7 +27,7 @@ const GameScreen2 = () => {
   const timerRef = useRef();
   const recStart = useRef();
   const recEnd = useRef();
-
+  const [reps, setReps] = useState(null);
 
   const handleStart = () => {
     timerRef.current.start();
@@ -36,7 +36,7 @@ const GameScreen2 = () => {
 
   const handleEnd = () => {
     recEnd.current.click();
-    history.push("/gs3")
+    history.push({ pathname: "/gs4", state: { reps } })
   }
   useEffect(() => {
     if (timerStatus === "on") {
@@ -55,7 +55,8 @@ const GameScreen2 = () => {
   useEffect(async () => {
     if (mediaBlob) {
       const videoFile = new File([mediaBlob], "video.mp4", { type: "video/mp4" });
-      await userService.uploadExercise(videoFile);
+      const resp = await userService.uploadExercise(videoFile);
+      setReps(resp.reps);
     }
   }, [mediaBlob])
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import NavBar from '../NavBar/NavBar';
 
-const GameScreen4 = () => {
+const GameScreen4 = ({ props }) => {
   const [reps, setReps] = useState(19);
   const [total, setTotal] = useState(0);
   const totalCounter = () => {
@@ -41,7 +41,7 @@ const GameScreen4 = () => {
           <div className="py-16">
             <h className="text-3xl ">Opponent:</h>
             <div className="pt-4">
-              <h className="text-lg">Reps Completed - 19</h>
+              <h className="text-lg">Reps Completed - 15</h>
             </div>
           </div>
         </div>
