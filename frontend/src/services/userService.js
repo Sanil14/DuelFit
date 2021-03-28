@@ -46,6 +46,24 @@ const userService = {
 
     },
 
+    joinQueue: async () => {
+        try {
+            const bearertoken = await userService._getToken();
+            if (!bearertoken) return console.log(`Not Logged In`);
+            const resp = await axios.get("/game/joinqueue", {
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            });
+            return resp.data;
+        } catch (e) {
+            console.log(e);
+            return {
+                success: false
+            }
+        }
+    },
+
     _getToken: async () => {
         if (token) return token;
         token = await auth().currentUser.getIdToken();

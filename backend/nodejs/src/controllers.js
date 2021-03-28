@@ -64,14 +64,21 @@ const controller = {
     _startMatch: async (uids) => {
         const datastructure = {
             "jj": {
-                "5L7hL288O4YyDkT2m5A9Sk4Rq783": 10,
-                "6OYEc44IjIVuhIaUntOe9rguM653": 10
+                [uids[0]]: 0,
+                [uids[1]]: 0,
             },
             "squats": {
-                "5L7hL288O4YyDkT2m5A9Sk4Rq783": 10,
-                "6OYEc44IjIVuhIaUntOe9rguM653": 20
+                [uids[0]]: 0,
+                [uids[1]]: 0,
             }
         }
+        db().ref(`/matches/${await controller._getMatchID()}`).set(datastructure);
+    },
+
+    _getMatchID: async () => {
+        const snapshot = await db().ref('matches').get();
+        if (!snapshot.val()) return 1;
+        return Object.values(snapshot.val()).length + 1;
     },
 
     _resetQueue: async () => {
