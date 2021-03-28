@@ -10,7 +10,7 @@ const GameScreen1 = () => {
   return (
     <section className="h-screen bg-gray-900">
       <div className="flex flex-row justify-around h-6/12">
-        <div className="bg-yellow-600 w-3/12 h-28 text-white top-10 relative mx-10 p- flex flex-col justify-evenly items-center">
+        <div className="bg-yellow-400 w-3/12 h-28 text-white top-10 relative mx-10 p- flex flex-col justify-evenly items-center">
           <h className="text-xl">Quick Duel</h>
           <h className="text-xl">Get Ready!</h>
         </div>
@@ -43,6 +43,9 @@ const GameScreen1 = () => {
             <li>Calories Burned: y</li>
           </ul>
         </div>
+      </div>
+      <div className="bg-yellow-400 h-10 flex flex-col justify-center items-center absolute bottom-0 right-96 mr-10 px-5"  >
+        <h className="text-2xl">Use this time to ready yourself in front of your camera.</h>
       </div>
     </section>
   )

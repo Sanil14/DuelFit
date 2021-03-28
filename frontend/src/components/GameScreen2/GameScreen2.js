@@ -3,6 +3,7 @@ import { ReactMediaRecorder } from "react-media-recorder";
 import Countdown from 'react-countdown';
 import userService from "../../services/userService"
 import { auth } from '../../services/firebase-auth';
+import { useHistory } from 'react-router-dom'
 
 const VideoPreview = ({ stream }) => {
   const videoRef = useRef(null);
@@ -19,12 +20,14 @@ const VideoPreview = ({ stream }) => {
 };
 
 const GameScreen2 = () => {
+
+  let history = useHistory();
   const [mediaBlob, setMediaBlob] = useState(null);
   const [timerStatus, setTimerStatus] = useState('on');
   const timerRef = useRef();
   const recStart = useRef();
   const recEnd = useRef();
-
+  const [reps, setReps] = useState(null);
 
   const handleStart = () => {
     timerRef.current.start();
@@ -33,6 +36,7 @@ const GameScreen2 = () => {
 
   const handleEnd = () => {
     recEnd.current.click();
+    history.push({ pathname: "/gs4", state: { reps } })
   }
   useEffect(() => {
     if (timerStatus === "on") {
@@ -51,7 +55,8 @@ const GameScreen2 = () => {
   useEffect(async () => {
     if (mediaBlob) {
       const videoFile = new File([mediaBlob], "video.mp4", { type: "video/mp4" });
-      await userService.uploadExercise(videoFile);
+      const resp = await userService.uploadExercise(videoFile);
+      setReps(resp.reps);
     }
   }, [mediaBlob])
 

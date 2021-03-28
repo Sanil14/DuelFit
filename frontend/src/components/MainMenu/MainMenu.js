@@ -46,12 +46,12 @@ const MainMenu = () => {
         <h className="text-xl pt-5">Your Position on the leaderboard: 15th</h>
       </div>
       <Link to="/find">
-        <div className="bg-green-400 right-0 absolute top-48 p-12 mr-20">
+        <div className="bg-blue-500 right-0 absolute top-48 p-12 mr-20">
           <h class="text-5xl text-white py-10 p-24">DUEL</h>
         </div>
       </Link>
 
-      <div className="bg-blue-300 right-0 absolute bottom-60 px-0 py-12 mr-20">
+      <div className="bg-yellow-400 right-0 absolute bottom-60 px-0 py-12 mr-20">
         <h class="text-5xl text-white py-10 p-24">PRACTICE</h>
       </div>
     </section >
