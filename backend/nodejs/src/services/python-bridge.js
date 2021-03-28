@@ -6,13 +6,28 @@ const watcher = chokidar.watch(path.join(__dirname, "../../../output"), { persis
 
 module.exports.initialize = function () {
     console.log(`Initialized Watching For Python Responses`);
+    let idarr = []
+    watcher.on('add', p => {
 
-    watcher.on('add', path => {
-        if (path.endsWith(".txt")) {
-            console.log(`${path} file was added`);
+        console.log(`${p} file was added`);
+        if (p.endsWith('.mp4')) {
+            let opath = path.basename(p)
+            var id = opath.slice(0, opath.length - 4)
+            idarr.push(id)
         }
-        if (path.endsWith(".mp4")) {
-            
+
+        if (p.endsWith('.txt')) {
+            let ppath = path.basename(p)
+            var id = ppath.slice(0, ppath.length - 4)
+            var bol = idarr.indexOf("id")
+            if (bol > -1) {
+
+            } 
+            fs.readFile(p,'utf8',(error,pp) => {
+                console.log(pp)
+            })
+
         }
+
     })
 }
