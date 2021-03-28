@@ -1,5 +1,4 @@
 const express = require("express");
-require("dotenv").config({ path: "./config/.firebase.env" })
 const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
