@@ -31,7 +31,7 @@ const GameScreen2 = () => {
   }
 
   const handleEnd = () => {
-    recEnd.current.click();
+    // recEnd.current.click();
   }
   useEffect(() => {
     if (timerStatus === "on") {
@@ -72,7 +72,7 @@ const GameScreen2 = () => {
               <div className="w-12/12 flex flex-col items-center">
                 <h>{status}</h>
                 <button ref={recStart} onClick={startRecording}>Start Recording</button>
-                <button ref={recEnd} onClick={stopRecording}>Stop Recording</button>
+                {/* <button ref={recEnd} onClick={stopRecording}>Stop Recording</button> */}
                 <div className="w-6/12 bg-black self-center">
                   <VideoPreview stream={previewStream} />
                 </div>
@@ -82,7 +82,10 @@ const GameScreen2 = () => {
           }}
       />
       <div className=" flex flex-row justify-center">
-        <h className="text-white w-12/12">Make sure to stay at the centre of the camera.</h>
+        <h className="text-white w-12/12">Make sure to place yourself within the rectangle.</h>
+      </div>
+      <div></div>
+      <div className="border-black border-2 w-3/12 h-4/6 absolute top-36 mr-48 right-1/4 ">
       </div>
 
     </section>

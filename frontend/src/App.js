@@ -17,8 +17,8 @@ function App() {
         <Login />
         <LaterRegister /> */}
         {/* <MainMenu /> */}
-        <FindGame />
-        <GameScreen1 />
+        {/* <FindGame />
+        <GameScreen1 /> */}
         <GameScreen2 />
       </header>
     </div>
